@@ -1,0 +1,7 @@
+C:\Users\yanhui\Desktop\Task\Task\TaskPlanExecuteProcess\TaskPlanExecuteProcess\bin\Debug\TaskPlanExecuteProcess.exe.config
+C:\Users\yanhui\Desktop\Task\Task\TaskPlanExecuteProcess\TaskPlanExecuteProcess\bin\Debug\TaskPlanExecuteProcess.exe
+C:\Users\yanhui\Desktop\Task\Task\TaskPlanExecuteProcess\TaskPlanExecuteProcess\bin\Debug\TaskPlanExecuteProcess.pdb
+C:\Users\yanhui\Desktop\Task\Task\TaskPlanExecuteProcess\TaskPlanExecuteProcess\obj\Debug\TaskPlanExecuteProcess.csproj.AssemblyReference.cache
+C:\Users\yanhui\Desktop\Task\Task\TaskPlanExecuteProcess\TaskPlanExecuteProcess\obj\Debug\TaskPlanExecuteProcess.csproj.CoreCompileInputs.cache
+C:\Users\yanhui\Desktop\Task\Task\TaskPlanExecuteProcess\TaskPlanExecuteProcess\obj\Debug\TaskPlanExecuteProcess.exe
+C:\Users\yanhui\Desktop\Task\Task\TaskPlanExecuteProcess\TaskPlanExecuteProcess\obj\Debug\TaskPlanExecuteProcess.pdb

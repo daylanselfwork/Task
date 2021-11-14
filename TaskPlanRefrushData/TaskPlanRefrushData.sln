@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskPlanRefrushData", "TaskPlanRefrushData\TaskPlanRefrushData.csproj", "{EACF3BF3-5E57-4DC3-9301-5E0BE6E2DAF7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EACF3BF3-5E57-4DC3-9301-5E0BE6E2DAF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EACF3BF3-5E57-4DC3-9301-5E0BE6E2DAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EACF3BF3-5E57-4DC3-9301-5E0BE6E2DAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EACF3BF3-5E57-4DC3-9301-5E0BE6E2DAF7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6176497E-E8F9-4CBA-82E7-F52B7A1D5C4E}
+	EndGlobalSection
+EndGlobal

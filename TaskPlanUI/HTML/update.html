@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修改任务</title>
+    <script src="../Js/vue.js"></script>
+    <script src="../Js/jquery.js"></script>
+    <link rel="stylesheet" href="../Css/update.css">
+</head>
+<body>
+    <div id="data_update">      
+        <table>
+            <tr>
+                <td>任务编号</td>
+                <td>{{task.ID}}</td>
+            </tr> 
+            <tr>
+                <td>任务名称</td>
+                <td><input type="text" name="NAME" id="NAME" v-model="task.NAME"></td>
+            </tr>                      
+            <tr>
+                <td>参数</td>
+                <td><input type="text" name="ARGUEMENTS" id="ARGUE" v-model="task.ARGUEMENTS"></td>
+            </tr>
+            <tr>
+                <td>启动时间</td>
+                <td><input type="datetime-local" name="STARTTIME" id="STARTTIME" :value="task.STARTTIME" :editable="false" format="yyyy/MM/dd HH:mm:ss"></td>
+            </tr>
+            <tr>
+                <td>小时</td>
+                <td><input type="text" name="STARTHOURSINTERVAL" id="STARTHOURSINTERVAL" v-model="task.STARTHOURSINTERVAL"></td>
+            </tr>
+            <tr>
+                <td>分钟</td>
+                <td><input type="text" name="STARTMINUTESINTERVAL" id="STARTMINUTESINTERVAL" v-model="task.STARTMINUTESINTERVAL"></td>
+            </tr>
+            <tr>
+                <td>秒</td>
+                <td><input type="text" name="STARTSECONDSINTERVAL" id="STARTSECONDSINTERVAL" v-model="task.STARTSECONDSINTERVAL"></td>
+            </tr>
+            <tr>
+                <td>任务状态</td>
+                <td><select name="STATE" id="STATE">
+                    <option value="1" :checked="task.STATE?true:false">启动</option>
+                    <option value="0" :checked="task.STATE?true:false">关闭</option>
+                </select></td>
+            </tr>            
+        </table>
+        <div id="btn_update"> 
+            <button type="button" @click="updateClick()">修改</button>            
+        </div>           
+</div>
+</body>
+<script>     
+    //地址栏参数放到数组中，取数组中的位置即可
+    var vue = new Vue({
+        el:"#data_update",
+        data:{
+            task:{
+                "ID":null,
+                "NAME":null,
+                "ARGUEMENTS":null,
+                "STARTTIME":null,
+                "STARTHOURSINTERVAL":null,
+                "STARTMINUTESINTERVAL":null,
+                "STARTSECONDSINTERVAL":null,
+                "STATE":null
+            }
+        },
+        created:function(){
+            var variable ="";
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i=0;i<vars.length;i++) {
+                var pair = vars[i].split("=");
+                if(pair[0] == "id")
+                {
+                   variable = pair[1];
+                }
+            }
+            if(variable==null){
+                return;
+            }
+            $.ajax({
+                url:"https://localhost:44308/api/Data/Query",
+                data:{
+                    "id":variable
+                },
+                type:"Get",
+                success:function(data){           
+                    vue.task = {
+                        "ID":variable,
+                        "NAME":data.NAME,
+                        "ARGUEMENTS":data.ARGUEMENTS,
+                        "STARTTIME":new Date(data.STARTTIME),
+                        "STARTHOURSINTERVAL":data.STARTHOURSINTERVAL,
+                        "STARTMINUTESINTERVAL":data.STARTMINUTESINTERVAL,
+                        "STARTSECONDSINTERVAL":data.STARTSECONDSINTERVAL,
+                        "STATE":data.STATE
+                    };
+                               
+                }
+             })
+        },
+        methods:{
+            updateClick:function(){
+                $.ajax({
+                    url:"https://localhost:44308/api/Data/Update",
+                    data:vue.task,
+                    success:function(data){
+                        if(data){
+                            alert("修改成功");
+                            window.location.href="../HTML/index.html";
+                        }
+                        else{
+                            alert("修改失败");
+                        }
+                    },
+                    error:function(){
+                        alert("修改失败");
+                    }
+                })
+            }
+        }
+    });
+    
+</script>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <script src="../Js/jquery.js"></script>
+    <script src="../Js/vue.js"></script>
+    <link rel="stylesheet" href="../Css/index.css">
+</head>
+<body>
+    <div id="task_list">   
+        <table>
+            <caption>任务列表</caption>
+            <thead>
+                <tr>
+                    <th>
+                        任务编号
+                    </th>
+                    <th>
+                        任务名称
+                    </th>
+                    <th>
+                        可执行程序路径
+                    </th>
+                    <th>
+                        文件名称
+                    </th>
+                    <th>
+                        可执行程序参数
+                    </th>
+                    <th>
+                        启动时间
+                    </th>
+                    <th>
+                        小时
+                    </th>
+                    <th>
+                        分钟
+                    </th>
+                    <th>
+                        秒
+                    </th>
+                    <th>
+                        任务创建时间
+                    </th>
+                    <th>
+                        更新时间
+                    </th>
+                    <th>
+                        任务状态
+                    </th>
+                    <th>
+                        执行位置
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tobody_data">
+                <tr v-for="item in tasks">
+                    <td>
+                        {{item.ID}}
+                    </td>
+                    <td>
+                        {{item.NAME}}
+                    </td>
+                    <td>
+                        {{item.PATHS}}
+                    </td>
+                    <td>
+                        {{item.FILENAME}}
+                    </td>
+                    <td>
+                        {{item.ARGUEMENTS}}
+                    </td>
+                    <td>
+                        {{item.STARTTIME}}
+                    </td>
+                    <td>
+                        {{item.STARTHOURSINTERVAL}}
+                    </td>
+                    <td>
+                        {{item.STARTMINUTESINTERVAL}}
+                    </td>
+                    <td>
+                        {{item.STARTSECONDSINTERVAL}}
+                    </td>
+                    <td>
+                        {{item.CREATETIME}}
+                    </td>
+                    <td>
+                        {{item.UPDATETIME}}
+                    </td>
+                    <td>
+                        {{item.STATE}}
+                    </td>
+                    <td>
+                        {{item.WORKINGDIRECOTORY}}
+                    </td>
+                    <td>
+                        <a href="../HTML/add.html">新增</a>
+                        <span>|</span>
+                        <span @click="deleteTask(item.ID)">删除</span>
+                        <span>|</span>
+                        <a :href="'../HTML/Update.html?id='+item.ID">修改</a>
+                    </td>
+                </tr>          
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="../Js/index.js"></script>
+</html>

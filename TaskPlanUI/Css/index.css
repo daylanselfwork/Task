@@ -1,0 +1,19 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+#task_list table{
+    width: 95%;
+    margin: auto;
+}
+table caption{
+    font-size: 30px;
+    line-height: 30px;
+    margin:40px 0px;
+}
+table tr td,th{
+    text-align: center;
+    padding:10px 20px;
+    font-size: 18px;
+    line-height: 18px;
+}

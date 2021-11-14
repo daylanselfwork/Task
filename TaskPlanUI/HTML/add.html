@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增任务</title>
+    <link rel="stylesheet" href="../Css/add.css">
+    <script src="../Js/jquery.js"></script>
+</head>
+<body>
+    <div id="data_add">      
+            <table>
+                <tr>
+                    <td>任务名称</td>
+                    <td><input type="text" name="NAME" id="NAME"></td>
+                </tr>
+                <tr>
+                    <td>可执行程序路径</td>
+                    <td><input type="file" name="PATHS" id="PATHS"></td>
+                </tr>               
+                <tr>
+                    <td>参数</td>
+                    <td><input type="text" name="ARGUEMENTS" id="ARGUE"></td>
+                </tr>
+                <tr>
+                    <td>启动时间</td>
+                    <td><input type="datetime-local" name="STARTTIME" id="STARTTIME"></td>
+                </tr>
+                <tr>
+                    <td>小时</td>
+                    <td><input type="text" name="STARTHOURSINTERVAL" id="STARTHOURSINTERVAL"></td>
+                </tr>
+                <tr>
+                    <td>分钟</td>
+                    <td><input type="text" name="STARTMINUTESINTERVAL" id="STARTMINUTESINTERVAL"></td>
+                </tr>
+                <tr>
+                    <td>秒</td>
+                    <td><input type="text" name="STARTSECONDSINTERVAL" id="STARTSECONDSINTERVAL"></td>
+                </tr>
+                <tr>
+                    <td>任务状态</td>
+                    <td>
+                        <select name="STATE" id="STATE">
+                            <option value="1">关闭</option>
+                            <option value="1">开启</option>                           
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>选择配置文件</td>
+                    <td><input type="file" name="WORKINGDIRECOTORY" id="WORKINGDIRECOTORY"></td>
+                </tr>
+            </table>
+            <div id="btn_add"> 
+                <button type="button" onclick="addClick();">添加</button>            
+            </div>           
+    </div>
+</body>
+<script>
+    function addClick (){
+            var Name = $("#NAME").val();
+            var Paths = $("#PATHS").val();           
+            var Argue = $("#ARGUE").val();            
+            var StartTime = $("#STARTTIME").val();
+            var StartHoursInterval = $("#STARTHOURSINTERVAL").val();
+            var StartMinutesInterval = $("#STARTMINUTESINTERVAL").val();
+            var StartSecondsInterval = $("#STARTSECONDSINTERVAL").val();
+            var State = $("#STATE").val();
+            var WorkingDirecotory = $("#WORKINGDIRECOTORY").val();          
+            if(Name=""){
+                alert("任务名称为空");
+                return;
+            }
+            if(Paths=""){
+                alert("可执行程序路径为空");
+                return;
+            }
+            if(Argue=""){
+                alert("参数为空");
+                return;
+            }           
+            if(StartTime==""&&StartHoursInterval==""
+            &&StartMinutesInterval==""&&StartSecondsInterval==""){
+                alert("启动时间为空");
+                return;
+            }
+            if(State=""){
+                alert("状态为空");
+                return;
+            }
+            if(WorkingDirecotory=""){
+                alert("执行目录为空");
+                return;
+            }            
+            var tasks = {
+                "NAME":Name,
+                "PATHS":Paths,
+                "ARGUEMENTS":Argue,
+                "STARTTIME":StartTime,
+                "STARTHOURSINTERVAL":StartHoursInterval,
+                "STARTMINUTESINTERVAL":StartMinutesInterval,
+                "STARTSECONDSINTERVAL":StartSecondsInterval,
+                "STATE":State,
+                "WORKINGDIRECOTORY":WorkingDirecotory
+            };
+           // console.log(tasks);
+            $.ajax({
+                url:"https://localhost:44308/api/Data/Add",
+                type:"Get",   
+                data:tasks,                
+                success:function(data){
+                    if(data){
+                        UploadFile();  
+                    }
+                    else{
+                        alert("任务添加失败");
+                    }           
+                },
+                error:function(){
+                    alert("任务添加失败");
+                }
+            })
+        }
+        function UploadFile(){
+            var file = document.getElementById("PATHS").files[0];
+            var myFormData = new FormData();
+            myFormData.append("file",file);
+            alert(file);
+            $.ajax({
+                url:"https://localhost:44308/api/FileUpload/Upload",
+                type:"GET",
+                data:myFormData,
+                dataType:"json",
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    alert(data);
+                },
+                error:function(){
+                    alert("文件上传失败");
+                }
+            });
+        }
+</script>
+</html>
