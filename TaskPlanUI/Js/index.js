@@ -9,8 +9,8 @@ var vue = new Vue({
               var results = confirm("确定删除ID为："+id+"的任务吗？");
               if(results){                  
                   $.ajax({
-                      url:"https://localhost:44308/api/Data/Delete",
-                      type:"GET",                   
+                      url:"https://localhost:44308/api/Data",
+                      type:"DELETE",                   
                       data:{
                           ID:id
                       },
@@ -34,7 +34,7 @@ var vue = new Vue({
 });
 
 $.ajax({
-    url:"https://localhost:44308/api/Data/Query",
+    url:"https://localhost:44308/api/Data",
     method:"GET",
     success:function(data){           
         vue.tasks = data;

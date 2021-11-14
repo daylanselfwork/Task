@@ -69,15 +69,15 @@
             var StartSecondsInterval = $("#STARTSECONDSINTERVAL").val();
             var State = $("#STATE").val();
             var WorkingDirecotory = $("#WORKINGDIRECOTORY").val();          
-            if(Name=""){
+            if(Name==""){
                 alert("任务名称为空");
                 return;
             }
-            if(Paths=""){
+            if(Paths==""){
                 alert("可执行程序路径为空");
                 return;
             }
-            if(Argue=""){
+            if(Argue==""){
                 alert("参数为空");
                 return;
             }           
@@ -86,11 +86,11 @@
                 alert("启动时间为空");
                 return;
             }
-            if(State=""){
+            if(State==""){
                 alert("状态为空");
                 return;
             }
-            if(WorkingDirecotory=""){
+            if(WorkingDirecotory==""){
                 alert("执行目录为空");
                 return;
             }            
@@ -104,11 +104,10 @@
                 "STARTSECONDSINTERVAL":StartSecondsInterval,
                 "STATE":State,
                 "WORKINGDIRECOTORY":WorkingDirecotory
-            };
-           // console.log(tasks);
+            };           
             $.ajax({
-                url:"https://localhost:44308/api/Data/Add",
-                type:"Get",   
+                url:"https://localhost:44308/api/Data/",
+                type:"POST",   
                 data:tasks,                
                 success:function(data){
                     if(data){
@@ -130,7 +129,7 @@
             alert(file);
             $.ajax({
                 url:"https://localhost:44308/api/FileUpload/Upload",
-                type:"GET",
+                type:"POST",
                 data:myFormData,
                 dataType:"json",
                 processData:false,

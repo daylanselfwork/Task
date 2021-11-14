@@ -15,27 +15,50 @@ namespace TaskPlanApi.Controllers
         {
 
         }
-        [HttpGet]
-        public bool Upload()
+        [HttpPost]
+        public string Upload()
         {
             /*  var request = HttpContext.Current.Request;
               var file = request;*/
-            HttpRequest request = HttpContext.Current.Request;
-            HttpFileCollection fileCollection = request.Files;
-            if (fileCollection.Count>0)
+            string path = "~/UploadFile/";
+            try
             {
-                HttpPostedFile file = fileCollection[0];
-                var savePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "UploadFile/";
-                if (!Directory.Exists(savePath))
+                HttpRequest request = HttpContext.Current.Request;
+                HttpPostedFile file = request.Files[0];
+                string[] filecombin = file.FileName.Split('.');
+                if (file == null || String.IsNullOrEmpty(file.FileName) || file.ContentLength == 0 || filecombin.Length < 2)
                 {
-                    Directory.CreateDirectory(savePath);
+                    return "上传出错";
                 }
-                file.SaveAs(savePath+file.FileName);
-                return true;
+
+                //项目相对路径
+                string local = path.Replace("~/", "").Replace('/', '\\');
+                //物理路径
+                string localPath = Path.Combine(HttpRuntime.AppDomainAppPath, local);
+                //文件名称
+                string saveName = file.FileName;
+                //扩展名
+                string extension = filecombin[filecombin.Length - 1];
+                //新名称(GUID格式)
+                string uName = Guid.NewGuid().ToString("N");
+                //判断文件存放路径是否存在
+                if (!System.IO.Directory.Exists(localPath))
+                {
+                    System.IO.Directory.CreateDirectory(localPath);
+                }
+                //文件保存路径
+                string localURL = Path.Combine(local, saveName + "." + extension);
+                //保存文件
+                file.SaveAs(Path.Combine(localPath, saveName + "." + extension));
+                return "上传成功";
+
             }
-            return false;
-            
-            
+            catch (Exception)
+            {
+                return "上传失败";
+            }
+
+
         }
     }
 }

@@ -107,7 +107,8 @@
         methods:{
             updateClick:function(){
                 $.ajax({
-                    url:"https://localhost:44308/api/Data/Update",
+                    url:"https://localhost:44308/api/Data/",
+                    type:"PUT",
                     data:vue.task,
                     success:function(data){
                         if(data){

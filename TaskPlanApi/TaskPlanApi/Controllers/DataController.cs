@@ -25,7 +25,7 @@ namespace TaskPlanApi.Controllers
         }
         // GET: api/Default
         [HttpGet]
-        public IEnumerable<TASKS> Query()
+        public IEnumerable<TASKS> Get()
         {
             string sql = "select * from TASKS";               
             List<TASKS> tasks = DBHelper.ExecuteDataSet(sql,null);
@@ -33,7 +33,7 @@ namespace TaskPlanApi.Controllers
         }
         [HttpGet]
         // GET: api/Default/5
-        public TASKS Query(int id)
+        public TASKS Get(int id)
         {
             string sql = "select * from TASKS where ID = " + Sign + "ID";        
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -50,13 +50,32 @@ namespace TaskPlanApi.Controllers
             }
             
            
-        }    
-        [HttpGet]
-        public bool Add(string NAME, string PATHS, string ARGUEMENTS, string STARTTIME,
+        }
+       /* [HttpPost]
+        public bool Post(string NAME, string PATHS, string ARGUEMENTS, string STARTTIME,
           string STARTHOURSINTERVAL, string STARTMINUTESINTERVAL, string STARTSECONDSINTERVAL, string STATE,
-          string WORKINGDIRECOTORY
-           )
+          string WORKINGDIRECOTORY)
         {
+           
+            return true;
+        }*/
+        /*
+               
+         */
+        [HttpPost]
+        public bool Post()
+        {
+
+            HttpRequest request = HttpContext.Current.Request;
+            string NAME = request.Form["NAME"].ToString();
+            string PATHS = request.Form["PATHS"].ToString();
+            string ARGUEMENTS = request.Form["ARGUEMENTS"].ToString();
+            string STARTTIME = request.Form["STARTTIME"].ToString();
+            string STATE = request.Form["STATE"].ToString();
+            string STARTHOURSINTERVAL = request.Form["STARTHOURSINTERVAL"].ToString();
+            string STARTMINUTESINTERVAL = request.Form["STARTMINUTESINTERVAL"].ToString();
+            string STARTSECONDSINTERVAL = request.Form["STARTSECONDSINTERVAL"].ToString();
+            string WORKINGDIRECOTORY = request.Form["WORKINGDIRECOTORY"].ToString();
             string sql = "insert into TASKS(NAME,PATHS,FILENAME,ARGUEMENTS," +
                 "STARTTIME,STARTHOURSINTERVAL,STARTMINUTESINTERVAL," +
                 "STARTSECONDSINTERVAL,CREATETIME,STATE,WORKINGDIRECOTORY) " +
@@ -65,6 +84,7 @@ namespace TaskPlanApi.Controllers
                 + "STARTHOURSINTERVAL," + Sign + "STARTMINUTESINTERVAL," + Sign + "STARTSECONDSINTERVAL," +Sign+
                  "CREATETIME," + Sign + "STATE," + Sign + "WORKINGDIRECOTORY" +
                 ")";
+           
             Dictionary<string, object> parameters = new Dictionary<string, object>()
             {
                 [Sign + "NAME"] = NAME,
@@ -87,10 +107,20 @@ namespace TaskPlanApi.Controllers
         /// 更新任务
         /// </summary>
         /// <param name="tasks"></param>
-        [HttpGet]
-        public bool Update(string NAME, string PATHS,string ARGUEMENTS, string STARTTIME,string STARTHOURSINTERVAL,
-            string STARTMINUTESINTERVAL,string STARTSECONDSINTERVAL,string STATE,string WORKINGDIRECOTORY,string ID)
+        [HttpPut]
+        public bool Put()
         {
+            HttpRequest request = HttpContext.Current.Request;
+            string NAME = request.Form["NAME"].ToString();
+            string PATHS = request.Form["PATHS"].ToString();
+            string ARGUEMENTS = request.Form["ARGUEMENTS"].ToString();
+            string STARTTIME = request.Form["STARTTIME"].ToString();
+            string STATE = request.Form["STATE"].ToString();
+            string STARTHOURSINTERVAL = request.Form["STARTHOURSINTERVAL"].ToString();
+            string STARTMINUTESINTERVAL = request.Form["STARTMINUTESINTERVAL"].ToString();
+            string STARTSECONDSINTERVAL = request.Form["STARTSECONDSINTERVAL"].ToString();
+            string WORKINGDIRECOTORY = request.Form["WORKINGDIRECOTORY"].ToString();
+            string ID = request.Form["ID"].ToString();
             string sql = "update TASKS set NAME=+"+Sign+ "NAME,PATHS=" + Sign + 
                 "PATHS,FILENAME=" + Sign + "FILENAME," + Sign + "ARGUEMENTS,STARTTIME =" 
                 + Sign + "STARTTIME,STARTHOURSINTERVAL=" + Sign +
@@ -98,7 +128,7 @@ namespace TaskPlanApi.Controllers
                 "STARTMINUTESINTERVAL,STARTSECONDSINTERVAL=" + Sign + 
                 "STARTSECONDSINTERVAL,UPDATETIME=" + Sign + 
                 "UPDATETIME,STATE=" + Sign + "STATE,WORKINGDIRECOTORY=" +
-                Sign + "WORKINGDIRECOTORY where ID = " + Sign + "ID,";
+                Sign + "WORKINGDIRECOTORY where ID = " + Sign + "ID";
             Dictionary<string, object> parameters = new Dictionary<string, object>()
             {
                 [Sign + "NAME"] = NAME,
@@ -118,13 +148,15 @@ namespace TaskPlanApi.Controllers
             return result;
         }
 
-        [HttpGet]
-        public bool Delete(int id)
+        [HttpDelete]
+        public bool Delete()
         {
+            HttpRequest request = HttpContext.Current.Request;
+            string id = request["ID"].ToString();
             string sql = "delete from TASKS where ID="+Sign+"ID";
             Dictionary<string, object> parameters = new Dictionary<string, object>()
             {
-                [Sign + "ID"] = id
+                [Sign + "ID"] = Convert.ToInt32(id)
             };            
           
             bool result = DBHelper.UseExecuteSql(sql,parameters);
